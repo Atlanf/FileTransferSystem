@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using System.Net.NetworkInformation;
 using System.Net;
 using System.Net.Sockets;
+using FileTransferSystem.Logic.Service.Interface.Network;
 
-namespace FileTransferSystem.Logic.Service.Network
+namespace FileTransferSystem.Logic.Service.Implementation.Network
 {
-    public class IpConfiguringService
+    public class IpConfiguringService : IIpConfiguringService
     {
-
         /*
             Parameter is either NetworkInterfaceType.Ethernet or NetworkInterfaceType.Wireless80211
-         */
+        */
         public string GetLocalIPAddress(NetworkInterfaceType interfaceType)
         {
             string output = "";
