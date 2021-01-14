@@ -8,5 +8,6 @@ namespace FileTransferSystem.Logic.Service.Implementation.Network.Server
 {
     public class ServerSocketService : IServerSocketService
     {
+
     }
 }

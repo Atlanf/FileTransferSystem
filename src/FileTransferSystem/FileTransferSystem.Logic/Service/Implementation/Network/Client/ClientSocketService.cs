@@ -8,5 +8,6 @@ namespace FileTransferSystem.Logic.Service.Implementation.Network.Client
 {
     public class ClientSocketService : IClientSocketService
     {
+
     }
 }
