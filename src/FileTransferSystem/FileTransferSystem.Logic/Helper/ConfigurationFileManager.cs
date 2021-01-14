@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace FileTransferSystem.Logic.Helper
 {
     public class ConfigurationFileManager
     {
         private readonly string _configFilePath = "";
+        private readonly IConfiguration _config;
 
-        public ConfigurationFileManager(string configFilePath)
+        public ConfigurationFileManager(IConfiguration config)
         {
-            _configFilePath = configFilePath;
+            _config = config;
         }
 
         public string GetWorkingDirectoryPath()

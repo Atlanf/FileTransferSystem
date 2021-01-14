@@ -12,11 +12,12 @@ namespace FileTransferSystem.Logic.Service.Implementation.Files
     {
         private readonly string _workingDirectoryPath = "";
         private readonly IMapper _mapper;
+        private readonly ConfigurationFileManager _configFileManager;
 
-        public FileProcessingService(string workingDirectory, IMapper mapper)
+        public FileProcessingService(IMapper mapper, ConfigurationFileManager configFileManager)
         {
-            _workingDirectoryPath = workingDirectory;
             _mapper = mapper;
+            _configFileManager = configFileManager;
         }
 
         public async Task<byte[,]> ProcessSelectedFile(string filePath, int portionSize = 1024)
