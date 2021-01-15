@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Height="36" Margin="287,95,0,0" VerticalAlignment="Top" Width="176" Click="Button_Click"/>
+        <TextBox HorizontalAlignment="Left" Margin="250,217,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="461" Height="49" x:Name="tbDirectory"/>
+        <Button x:Name="btnGet"  Content="Button" HorizontalAlignment="Left" Margin="565,113,0,0" VerticalAlignment="Top" Click="btnGet_Click"/>
 
     </Grid>
 </Window>

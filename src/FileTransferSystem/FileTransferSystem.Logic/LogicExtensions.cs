@@ -16,7 +16,7 @@ namespace FileTransferSystem.Logic
 {
     public static class LogicExtensions
     {
-        public static IServiceCollection AddLogicServices(this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddLogicServices(this IServiceCollection services)
         {
             services.AddMapper();
 
@@ -26,7 +26,7 @@ namespace FileTransferSystem.Logic
             services.AddTransient<IFileProcessingService, FileProcessingService>();
             services.AddTransient<IDirectoryProcessingService, DirectoryProcessingService>();
 
-            services.AddTransient(provider => new ConfigurationFileManager(config));
+            services.AddTransient<ConfigurationFileManager>();
 
             return services;
         }

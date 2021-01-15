@@ -17,17 +17,10 @@ namespace FileTransferSystem.Server
     /// </summary>
     public partial class App : Application
     {
-        public IConfiguration Configuration { get; private set; }
-
         private ServiceProvider serviceProvider;
 
         public App()
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-            Configuration = builder.Build();
-
             var services = new ServiceCollection();
             ConfigureServices(services);
             serviceProvider = services.BuildServiceProvider();
@@ -35,7 +28,7 @@ namespace FileTransferSystem.Server
 
         private void ConfigureServices(ServiceCollection services)
         {
-            services.AddLogicServices(Configuration);
+            services.AddLogicServices();
 
             services.AddSingleton<MainWindow>();
         }

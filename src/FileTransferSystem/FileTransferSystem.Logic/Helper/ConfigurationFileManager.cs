@@ -8,22 +8,48 @@ namespace FileTransferSystem.Logic.Helper
 {
     public class ConfigurationFileManager
     {
-        private readonly string _configFilePath = "";
-        private readonly IConfiguration _config;
-
-        public ConfigurationFileManager(IConfiguration config)
-        {
-            _config = config;
-        }
+        private string WorkingDirectoryKey { get; } = "SyncDirectory";
 
         public string GetWorkingDirectoryPath()
         {
-            return "";
+            string result = "";
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                result = appSettings[WorkingDirectoryKey] ?? "Not Found";
+            }
+            catch (ConfigurationErrorsException)
+            {
+                result = null;
+            }
+            return result;
         }
 
-        public bool SetWorkingDirectoryPath()
+        public string SetWorkingDirectoryPath(string path)
         {
-            return false;
+            try
+            {
+                var configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var settings = configManager.AppSettings.Settings;
+
+                if (settings[WorkingDirectoryKey] != null)
+                {
+                    settings[WorkingDirectoryKey].Value = path;
+                }
+                else
+                {
+                    settings.Add(WorkingDirectoryKey, path);
+                }
+
+                configManager.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
+
+                return GetWorkingDirectoryPath();
+            }
+            catch (ConfigurationErrorsException)
+            {
+                return null;
+            }
         }
     }
 }
