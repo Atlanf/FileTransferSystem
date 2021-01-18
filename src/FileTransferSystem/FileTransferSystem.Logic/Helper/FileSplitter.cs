@@ -11,7 +11,7 @@ namespace FileTransferSystem.Logic.Helper
         public int FilePortionSize { get; private set; }
         public int FileSize { get; private set; }
 
-        public FileSplitter(int filePortionSize)
+        public FileSplitter(int filePortionSize = 8000)
         {
             FilePortionSize = filePortionSize;
         }

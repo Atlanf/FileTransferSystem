@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Text;
 
 namespace FileTransferSystem.Logic.Service.Interface.Network
 {
-    interface IIpConfiguringService
+    public interface IIpConfiguringService
     {
-        string GetLocalIPAddress(NetworkInterfaceType interfaceType);
+        IPAddress GetLocalIPAddress(NetworkInterfaceType interfaceType);
         bool GetConnectionStatus();
     }
 }

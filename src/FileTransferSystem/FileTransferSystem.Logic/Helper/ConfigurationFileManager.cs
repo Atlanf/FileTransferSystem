@@ -12,7 +12,8 @@ namespace FileTransferSystem.Logic.Helper
 
         public string GetWorkingDirectoryPath()
         {
-            string result = "";
+            string result;
+
             try
             {
                 var appSettings = ConfigurationManager.AppSettings;
@@ -22,6 +23,7 @@ namespace FileTransferSystem.Logic.Helper
             {
                 result = null;
             }
+
             return result;
         }
 

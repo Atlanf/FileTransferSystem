@@ -15,9 +15,9 @@ namespace FileTransferSystem.Logic.Service.Implementation.Network
         /*
             Parameter is either NetworkInterfaceType.Ethernet or NetworkInterfaceType.Wireless80211
         */
-        public string GetLocalIPAddress(NetworkInterfaceType interfaceType)
+        public IPAddress GetLocalIPAddress(NetworkInterfaceType interfaceType)
         {
-            string output = "";
+            IPAddress output = null;
 
             foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
             {
@@ -30,13 +30,13 @@ namespace FileTransferSystem.Logic.Service.Implementation.Network
                         {
                             if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
                             {
-                                output = ip.Address.ToString();
+                                output = ip.Address;
                                 break;
                             }
                         }
                     }
                 }
-                if (output != "")
+                if (output != null)
                 {
                     break;
                 }

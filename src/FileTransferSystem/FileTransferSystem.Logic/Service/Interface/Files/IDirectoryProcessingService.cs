@@ -4,7 +4,8 @@ using System.Text;
 
 namespace FileTransferSystem.Logic.Service.Interface.Files
 {
-    interface IDirectoryProcessingService
+    public interface IDirectoryProcessingService
     {
+        string ChangeWorkingDirectory(string newDirectory);
     }
 }
