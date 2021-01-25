@@ -17,7 +17,6 @@ namespace FileTransferSystem.Logic.Service.Implementation.Network.Server
         public string ErrorMessage { get; private set; } = "";
         public string Result { get; private set; } = "";
         public bool IsCompleted { get; private set; } = false;
-        
 
         private readonly IIpConfiguringService _ipConfiguringService;
         private int _portNumber { get; set; } = 12011;
@@ -42,19 +41,24 @@ namespace FileTransferSystem.Logic.Service.Implementation.Network.Server
 
         private void SendSingleFileCallback(IAsyncResult ar)
         {
+            Socket handler = (Socket)ar.AsyncState;
             try
             {
-                Socket handler = (Socket)ar.AsyncState;
-
                 handler.EndSendFile(ar);
+
+                handler.Shutdown(SocketShutdown.Both);
             }
             catch (Exception ex)
             {
                 ErrorMessage = ex.Message.ToString();
             }
+            finally
+            {
+                handler.Close();   
+            }
         }
 
-        private void SetNetworkInfo(NetworkInterfaceType interfaceType)
+        private void SetNetworkInfo(NetworkInterfaceType interfaceType = NetworkInterfaceType.Ethernet)
         {
             IpAddress = _ipConfiguringService.GetLocalIPAddress(interfaceType);
             LocalEndPoint = new IPEndPoint(IpAddress, _portNumber);

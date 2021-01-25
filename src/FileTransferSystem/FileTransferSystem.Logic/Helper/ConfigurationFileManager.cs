@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Text;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
+using FileTransferSystem.Logic.Enum;
 
 namespace FileTransferSystem.Logic.Helper
 {
     public class ConfigurationFileManager
     {
-        private string WorkingDirectoryKey { get; } = "SyncDirectory";
-
-        public string GetWorkingDirectoryPath()
+        public string GetConfigurationValue(ConfigManagerKeys key)
         {
+            var configKey = key.ToString();
             string result;
-
+            
             try
             {
                 var appSettings = ConfigurationManager.AppSettings;
-                result = appSettings[WorkingDirectoryKey] ?? "Not Found";
+                result = appSettings[configKey] ?? "Not Found";
             }
             catch (ConfigurationErrorsException)
             {
@@ -27,26 +27,28 @@ namespace FileTransferSystem.Logic.Helper
             return result;
         }
 
-        public string SetWorkingDirectoryPath(string path)
+        public string SetConfigurationValue(ConfigManagerKeys key, string value)
         {
+            var configKey = key.ToString();
+            
             try
             {
                 var configManager = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 var settings = configManager.AppSettings.Settings;
 
-                if (settings[WorkingDirectoryKey] != null)
+                if (settings[configKey] != null)
                 {
-                    settings[WorkingDirectoryKey].Value = path;
+                    settings[configKey].Value = value;
                 }
                 else
                 {
-                    settings.Add(WorkingDirectoryKey, path);
+                    settings.Add(configKey, value);
                 }
 
                 configManager.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection(configManager.AppSettings.SectionInformation.Name);
 
-                return GetWorkingDirectoryPath();
+                return GetConfigurationValue(key);
             }
             catch (ConfigurationErrorsException)
             {
